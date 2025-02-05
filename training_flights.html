@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Training Flights (MPL/CPL)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #576174;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #647180;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .nav-links a:hover {
+            background-color: #e1e6eb;
+        }
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .nav-toggle span {
+            background-color: white;
+            height: 2px;
+            width: 25px;
+            margin: 4px;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+            }
+            .nav-links a {
+                text-align: center;
+                padding: 10px;
+                width: 100%;
+                border-radius: 0;
+            }
+            .nav-toggle {
+                display: flex;
+            }
+        }
+        form {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        fieldset {
+            border: 2px solid #21262b;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #f9f9f9;
+        }
+        legend {
+            font-weight: bold;
+            color: #343638;
+            padding: 5px 10px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: white;
+        }
+        input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 12px;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+    </style>
+    <script>
+     function toggleNav() {
+        const navLinks = document.querySelector('.nav-links');
+        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+     }
+    function calculateDuration() {
+        const timeIn = document.getElementById('time_in').value;
+        const timeOut = document.getElementById('time_out').value;
+        if (timeIn && timeOut) {
+            const [hoursIn, minutesIn] = timeIn.split(':').map(Number);
+            const [hoursOut, minutesOut] = timeOut.split(':').map(Number);
+            const dateIn = new Date();
+            const dateOut = new Date();
+            dateIn.setHours(hoursIn, minutesIn);
+            dateOut.setHours(hoursOut, minutesOut);
+            let diffMs = dateOut - dateIn;
+            if (diffMs < 0) {
+                diffMs += 24 * 60 * 60 * 1000; // Add 24 hours in milliseconds
+            }
+            const diffHrs = Math.floor(diffMs / (1000 * 60 * 60));
+            const diffMins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById('flight_duration').value = `${diffHrs}h ${diffMins}m`;
+        }
+    }
+    </script>
+</head>
+<body>
+    <nav>
+        <div class="nav-toggle" onclick="toggleNav()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="training_flights.html">Training Flights (MPL/CPL)</a>
+            <a href="ip_flights.html">IP Flights (PL/IDP/Currency)</a>
+            <a href="ferry_test_flights.html">Ferry/Test Flights</a>
+        </div>
+    </nav>
+    <form action="submit_form.php" method="post">
+        <fieldset>
+            <legend>General Information</legend>
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+            
+            <label for="station">Station:</label>
+            <select id="station" name="station" required>
+                <option value="ADD">ADD</option>
+                <option value="AWA">AWA</option>
+                <option value="DIR">DIR</option>
+                <option value="JIJ">JIJ</option>
+                <option value="JIM">JIM</option>
+                <option value="BJR">BJR</option>
+                <option value="AMH">AMH</option>
+                <option value="MQX">MQX</option>
+            </select>
+            
+
+        </fieldset>
+
+        <fieldset>
+            <legend>Resources</legend>
+            <label for="resource_type">Resource Type:</label>
+            <select id="resource_type" name="resource_type" required>
+                <option value="AC">AC</option>
+                <option value="FTD">FTD</option>
+            </select>
+            
+            <label for="equipment">Equipment Type:</label>
+            <select id="equipment" name="equipment" required>
+                <option value="C172">C172</option>
+                <option value="DA40">DA40</option>
+                <option value="DA42">DA42</option>
+            </select>
+            
+            <label for="equipment_callsign">Equipment Call Sign:</label>
+            <input type="text" id="equipment_callsign" name="equipment_callsign">
+        </fieldset>
+
+        <fieldset>
+            <legend>Instructor Information</legend>
+            <label for="ip_position">IP Position:</label>
+            <select id="ip_position" name="ip_position" required>
+                <option value="Head PTS">Head PTS</option>
+                <option value="Asst.Head PTS">Asst.Head PTS</option>
+                <option value="Asst.Head PTS AWA">Asst.Head PTS AWA</option>
+                <option value="Chief FL.In">Chief FL.In</option>
+                <option value="A/Chief FL.In">A/Chief FL.In</option>
+                <option value="Sr.FL.IN">Sr.FL.IN</option>
+                <option value="Fl.In">Fl.In</option>
+                <option value="Jr.Fl.In">Jr.Fl.In</option>
+                <option value="Ass.Fl.In">Ass.Fl.In</option>
+            </select>
+            
+            <label for="ip_callsign">IP Call Sign:</label>
+            <input type="text" id="ip_callsign" name="ip_callsign" required>
+        </fieldset>
+
+        <fieldset>
+            <legend>Student Information</legend>
+            <label for="sp_batch">SP Batch:</label>
+            <select id="sp_batch" name="sp_batch">
+                <option value="MPL 56">MPL 56</option>
+                <option value="MPL 57">MPL 57</option>
+                <option value="MPL 58">MPL 58</option>
+            </select>                
+            <label for="sp_callsign">SP Call Sign:</label>
+            <input type="text" id="sp_callsign" name="sp_callsign">
+        </fieldset>
+
+        <fieldset>
+            <legend>Flight Details</legend>
+            <label for="lesson_type">Lesson Type:</label>
+            <input type="text" id="lesson_type" name="lesson_type">
+            
+            <label for="time_in">Time In:</label>
+            <input type="time" id="time_in" name="time_in" required onchange="calculateDuration()">
+            
+            <label for="time_out">Time Out:</label>
+            <input type="time" id="time_out" name="time_out" required onchange="calculateDuration()">
+            
+            <label for="flight_duration">Actual Duration:</label>
+            <input type="text" id="flight_duration" name="flight_duration" readonly>
+        </fieldset> 
+        
+        <fieldset>
+            <legend>Remarks</legend>
+            <label for="reason_for_difference">Reason for Scheduled Vs Actual Flight Duration Difference:</label>
+            <input type="text" id="reason_for_difference" name="reason_for_difference">
+            
+            <label for="reason_aborted_cancelled">Reason if Aborted/Cancelled:</label>
+            <input type="text" id="reason_aborted_cancelled" name="reason_aborted_cancelled">
+            <fieldset>
+                <legend>Student Grade</legend>
+                <label for="student_grade">Student Grade:</label>
+                <input type="number" id="student_grade" name="student_grade">
+            </fieldset>
+        </fieldset>
+        
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
