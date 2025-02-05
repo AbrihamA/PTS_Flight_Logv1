@@ -135,7 +135,40 @@
             document.getElementById('flight_duration').value = `${diffHrs}h ${diffMins}m`;
         }
     }
-    </script>
+
+    function updateEquipmentCallSign() {
+        const resourceType = document.getElementById("resource_type").value;
+        const equipmentType = document.getElementById("equipment").value;
+        const equipmentCallSign = document.getElementById("equipment_callsign");
+    
+            // Define call signs based on selection
+        const callSigns = {
+            "AC": {
+                "DA40": ["ET-APA", "ET-APB", "ET-APC", "ET-APD", "ET-AOH", "ET-AOI", "ET-AOJ", "ET-AOY", "ET-AUI", "ET-AUJ", "ET-AUH", "ET-AWT", "ET-AWU", "ET-AWV", "ET-AWW", "ET-AWZ", "ET-AXA", "ET-AXB", "ET-AXC", "ET-AXD", "ET-AZC", "ET-AZD", "ET-AZE", "ET-AZF", "ET-AZH"],
+                "C172": ["ET-AQY", "ET-ASP", "ET-ASQ", "ET-ASR", "ET-ASS", "ET-AST", "ET-ASV"],
+                "DA42": ["ET-APG", "ET-APH", "ET-AWA", "ET-AWB"]
+            },
+                "FTD": {
+                    "C172": ["FTD-01", "FTD-02"],
+                    "DA40": ["FTD-DA1", "FTD-DA2"],
+                    "DA42": ["FTD-DX1", "FTD-DX2"]
+                }
+            };
+    
+            // Clear previous options
+            equipmentCallSign.innerHTML = "<option value=''>Select Call Sign</option>";
+    
+            // Populate dropdown if selections exist
+            if (resourceType && equipmentType && callSigns[resourceType] && callSigns[resourceType][equipmentType]) {
+                callSigns[resourceType][equipmentType].forEach(sign => {
+                    const option = document.createElement("option");
+                    option.value = sign;
+                    option.textContent = sign;
+                    equipmentCallSign.appendChild(option);
+                });
+            }
+        }
+        </script>
 </head>
 <body>
     <nav>
@@ -159,6 +192,7 @@
             
             <label for="station">Station:</label>
             <select id="station" name="station" required>
+                <option value="ADD">Select Station</option>
                 <option value="ADD">ADD</option>
                 <option value="AWA">AWA</option>
                 <option value="DIR">DIR</option>
@@ -175,20 +209,24 @@
         <fieldset>
             <legend>Resources</legend>
             <label for="resource_type">Resource Type:</label>
-            <select id="resource_type" name="resource_type" required>
-                <option value="AC">AC</option>
-                <option value="FTD">FTD</option>
+            <select id="resource_type" name="resource_type" required onchange="updateEquipmentCallSign()">
+                <option value="">Select Resource Type</option>
+                <option value="AC">Aircraft (AC)</option>
+                <option value="FTD">Flight Training Device (FTD)</option>
             </select>
             
             <label for="equipment">Equipment Type:</label>
-            <select id="equipment" name="equipment" required>
+            <select id="equipment" name="equipment" required onchange="updateEquipmentCallSign()">
+                <option value="">Select Equipment Type</option>
                 <option value="C172">C172</option>
                 <option value="DA40">DA40</option>
                 <option value="DA42">DA42</option>
             </select>
             
             <label for="equipment_callsign">Equipment Call Sign:</label>
-            <input type="text" id="equipment_callsign" name="equipment_callsign">
+            <select id="equipment_callsign" name="equipment_callsign" required>
+                <option value="">Select Call Sign</option>
+            </select>
         </fieldset>
 
         <fieldset>
