@@ -149,9 +149,9 @@
                 "DA42": ["ET-APG", "ET-APH", "ET-AWA", "ET-AWB"]
             },
                 "FTD": {
-                    "C172": ["FTD-01", "FTD-02"],
-                    "DA40": ["FTD-DA1", "FTD-DA2"],
-                    "DA42": ["FTD-DX1", "FTD-DX2"]
+                    "C172": ["FTD-CS1", "FTD-CS2"],
+                    "DA40": ["FTD-DA1", "FTD-DA2", "FTD-DX1", "FTD-DX2", "FTD-DX3", "FTD-DX4"],
+                    "DA42": ["FTD-DX1", "FTD-DX2", "FTD-DX3", "FTD-DX4"]
                 }
             };
     
@@ -168,7 +168,50 @@
                 });
             }
         }
-        </script>
+        const ipData = {
+        "27660": { name: "ABRIHAM AKELE GIZAW", callsign: "AK", position: "Head PTS" },
+        "201033": { name: "B/GEN. H/SELASSIE GEBRU", callsign: "HS", position: "Asst.Head PTS" },
+        "205171": { name: "WONDU KEDA KETO", callsign: "WN", position: "Asst.Head PTS AWA" },
+        "31410": { name: "YOHANNES FEKADU SHIFERAW", callsign: "JO", position: "Chief FL.In" },
+        "31416": { name: "ABNET TADELE TILAHUN", callsign: "AD", position: "Chief FL.In" },
+        "31632": { name: "YOHANNES SHEMELES", callsign: "YO", position: "A/Chief FL.In" },
+        "31633": { name: "GELETA MITIKU TADESE", callsign: "GL", position: "A/Chief FL.In" },
+        "15526": { name: "BERHANE WUBNEH TESFAYE", callsign: "BR", position: "Sr.FL.IN" },
+        "23794": { name: "YITBAREK ADDIS KIDANU", callsign: "YT", position: "Sr.FL.IN" },
+        "204486": { name: "CHANE TEFERI", callsign: "CH", position: "Sr.FL.IN" },
+        "27673": { name: "MEKDIM GETACHEW SAHILU", callsign: "MG", position: "Sr.FL.IN" },
+        "31411": { name: "ROBEL TAMIRU GETACHEW", callsign: "RO", position: "Sr.FL.IN" },
+        "31412": { name: "ABEL TSEGAYE WOLDESILASSIE", callsign: "LG", position: "Sr.FL.IN" },
+        "31413": { name: "MULUGETA GAGA GASSA", callsign: "ME", position: "Sr.FL.IN" },
+        "31414": { name: "MINTESNOT DEJENE FELEKE", callsign: "MJ", position: "Sr.FL.IN" },
+        "31415": { name: "ABEL YIGEZU MEKONEN", callsign: "EL", position: "Sr.FL.IN" },
+        "31539": { name: "MELAKU WONDIMU WOLDETSADIK", callsign: "LA", position: "Sr.FL.IN" },
+        "27154": { name: "KUHLEN WELDU KASSAYE", callsign: "KU", position: "Fl.In" },
+        "31629": { name: "SOLOMON ZEMEDKUN BELETE", callsign: "SZ", position: "Fl.In" },
+        "31631": { name: "BISRAT GIRMA TESEMA", callsign: "BG", position: "Fl.In" },
+        "31634": { name: "ABDULFETA NESREDIN NASSIR", callsign: "AZ", position: "Fl.In" }
+        // Add all other mappings here...
+    };
+    function autofillIPDetails() {
+        const ipId = document.getElementById("ip_id").value; // Selected IP ID
+        const ipNameField = document.getElementById("ip_name");
+        const ipCallsignField = document.getElementById("ip_callsign");
+        const ipPositionField = document.getElementById("ip_position");
+
+        // Autofill details if IP ID exists in the dataset
+        if (ipData[ipId]) {
+            ipNameField.value = ipData[ipId].name;
+            ipCallsignField.value = ipData[ipId].callsign;
+            ipPositionField.value = ipData[ipId].position;
+        } else {
+            // Clear fields if no match is found
+            ipNameField.value = "";
+            ipCallsignField.value = "";
+            ipPositionField.value = "";
+        }
+    }
+
+    </script>
 </head>
 <body>
     <nav>
@@ -231,21 +274,130 @@
 
         <fieldset>
             <legend>Instructor Information</legend>
-            <label for="ip_position">IP Position:</label>
-            <select id="ip_position" name="ip_position" required>
-                <option value="Head PTS">Head PTS</option>
-                <option value="Asst.Head PTS">Asst.Head PTS</option>
-                <option value="Asst.Head PTS AWA">Asst.Head PTS AWA</option>
-                <option value="Chief FL.In">Chief FL.In</option>
-                <option value="A/Chief FL.In">A/Chief FL.In</option>
-                <option value="Sr.FL.IN">Sr.FL.IN</option>
-                <option value="Fl.In">Fl.In</option>
-                <option value="Jr.Fl.In">Jr.Fl.In</option>
-                <option value="Ass.Fl.In">Ass.Fl.In</option>
+            <label for="ip_id">IP ID:</label>
+            <select id="ip_id" name="ip_id" required onchange="autofillIPDetails()">
+                <option value="">Select your ID</option>
+                <option value="27660">27660</option>
+                <option value="201033">201033</option>
+                <option value="205171">205171</option>
+                <option value="31410">31410</option>
+                <option value="31416">31416</option>
+                <option value="31632">31632</option>
+                <option value="31633">31633</option>
+                <option value="15526">15526</option>
+                <option value="23794">23794</option>
+                <option value="204486">204486</option>
+                <option value="27673">27673</option>
+                <option value="31411">31411</option>
+                <option value="31412">31412</option>
+                <option value="31413">31413</option>
+                <option value="31414">31414</option>
+                <option value="31415">31415</option>
+                <option value="31539">31539</option>
+                <option value="27154">27154</option>
+                <option value="31629">31629</option>
+                <option value="31631">31631</option>
+                <option value="31634">31634</option>
+                <option value="31635">31635</option>
+                <option value="31636">31636</option>
+                <option value="31637">31637</option>
+                <option value="31638">31638</option>
+                <option value="31639">31639</option>
+                <option value="31640">31640</option>
+                <option value="31641">31641</option>
+                <option value="31642">31642</option>
+                <option value="31643">31643</option>
+                <option value="31644">31644</option>
+                <option value="31645">31645</option>
+                <option value="31646">31646</option>
+                <option value="31647">31647</option>
+                <option value="31648">31648</option>
+                <option value="31649">31649</option>
+                <option value="205137">205137</option>
+                <option value="205136">205136</option>
+                <option value="205135">205135</option>
+                <option value="32140">32140</option>
+                <option value="32141">32141</option>
+                <option value="32142">32142</option>
+                <option value="32143">32143</option>
+                <option value="32144">32144</option>
+                <option value="32145">32145</option>
+                <option value="32146">32146</option>
+                <option value="32147">32147</option>
+                <option value="32148">32148</option>
+                <option value="32149">32149</option>
+                <option value="32150">32150</option>
+                <option value="32151">32151</option>
+                <option value="32152">32152</option>
+                <option value="32153">32153</option>
+                <option value="32154">32154</option>
+                <option value="32155">32155</option>
+                <option value="33128">33128</option>
+                <option value="33129">33129</option>
+                <option value="33130">33130</option>
+                <option value="33131">33131</option>
+                <option value="33132">33132</option>
+                <option value="33133">33133</option>
+                <option value="33134">33134</option>
+                <option value="33135">33135</option>
+                <option value="33136">33136</option>
+                <option value="33865">33865</option>
+                <option value="33866">33866</option>
+                <option value="33867">33867</option>
+                <option value="33868">33868</option>
+                <option value="33869">33869</option>
+                <option value="33870">33870</option>
+                <option value="33871">33871</option>
+                <option value="33872">33872</option>
+                <option value="33873">33873</option>
+                <option value="33874">33874</option>
+                <option value="33875">33875</option>
+                <option value="33876">33876</option>
+                <option value="33877">33877</option>
+                <option value="33878">33878</option>
+                <option value="33879">33879</option>
+                <option value="33880">33880</option>
+                <option value="34569">34569</option>
+                <option value="34570">34570</option>
+                <option value="34571">34571</option>
+                <option value="34572">34572</option>
+                <option value="34573">34573</option>
+                <option value="34574">34574</option>
+                <option value="34575">34575</option>
+                <option value="34576">34576</option>
+                <option value="34577">34577</option>
+                <option value="34578">34578</option>
+                <option value="33579">33579</option>
+                <option value="35679">35679</option>
+                <option value="35680">35680</option>
+                <option value="35681">35681</option>
+                <option value="35682">35682</option>
+                <option value="35683">35683</option>
+                <option value="35684">35684</option>
+                <option value="35685">35685</option>
+                <option value="36143">36143</option>
+                <option value="36144">36144</option>
+                <option value="36145">36145</option>
+                <option value="36146">36146</option>
+                <option value="36147">36147</option>
+                <option value="36148">36148</option>
+                <option value="36149">36149</option>
+                <option value="36150">36150</option>
+                <option value="36151">36151</option>
+                <option value="36152">36152</option>
+                <option value="36153">36153</option>
+                <option value="36154">36154</option>
+                <option value="36155">36155</option>
             </select>
-            
+
+            <label for="ip_name">IP Name:</label>
+            <input type="text" id="ip_name" name="ip_name" readonly required>
+
             <label for="ip_callsign">IP Call Sign:</label>
-            <input type="text" id="ip_callsign" name="ip_callsign" required>
+            <input type="text" id="ip_callsign" name="ip_callsign" readonly required>
+
+            <label for="ip_position">IP Position:</label>
+            <input type="text" id="ip_position" name="ip_position" readonly required>
         </fieldset>
 
         <fieldset>
