@@ -1,7 +1,7 @@
 {
   "name": "My PWA App",
   "short_name": "PWA App",
-  "start_url": "/",
+  "start_url": "/PTS_Flight_Logv1",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
