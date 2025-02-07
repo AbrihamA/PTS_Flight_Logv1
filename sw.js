@@ -3,7 +3,11 @@ self.addEventListener('install', (event) => {
         caches.open('pwa-cache').then((cache) => {
             return cache.addAll([
                 
-                'index.html',
+                '/PTS_Flight_Logv1', // Ensure the start page is cached
+                '/PTS_Flight_Logv1/index.html',
+                '/PTS_Flight_Logv1/styles.css',
+                '/PTS_Flight_Logv1/icons/icon-192x192.png',
+                '/PTS_Flight_Logv1/icons/icon-512x512.png'
             
                 
             ]);
